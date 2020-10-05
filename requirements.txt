@@ -1,1 +1,4 @@
 discord.py
+dotenv
+bs4
+newsapi
