@@ -13,9 +13,11 @@ import asyncio
 from datetime import datetime, timedelta
 
 
-load_dotenv()
-DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-NEWSAPI_TOKEN = os.getenv('NEWSAPI_TOKEN')
+# load_dotenv()
+# DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+DISCORD_TOKEN = "NzU5NjE2MjE0NTM2MDI4MjAw.X3AFug.XhmupBGvSc7xDUrLefiBLN_a6-A"
+# NEWSAPI_TOKEN = os.getenv('NEWSAPI_TOKEN')
+NEWSAPI_TOKEN = "dd38a6e14b0a4e908241e6a73e00e937"
 newsapi = NewsApiClient(api_key=NEWSAPI_TOKEN)
 
 def get_news(source="bbc-news"):
