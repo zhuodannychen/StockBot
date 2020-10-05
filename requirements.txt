@@ -1,4 +1,4 @@
 discord.py
 python-dotenv
 bs4
-newsapi
+newsapi-python
