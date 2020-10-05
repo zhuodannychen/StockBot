@@ -10,8 +10,6 @@ import requests
 from newsapi import NewsApiClient
 
 import asyncio
-import sched
-import time
 from datetime import datetime, timedelta
 
 
