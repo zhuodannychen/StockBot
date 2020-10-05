@@ -67,7 +67,7 @@ async def before():
     n = datetime.now()
     tomorrow = datetime.now() + timedelta(1)
     morning = datetime(year=tomorrow.year, month=tomorrow.month, 
-                        day=tomorrow.day, hour=16, minute=12, second=0)
+                        day=tomorrow.day, hour=8, minute=00, second=0)
     left = (morning - datetime.now()).seconds
     await asyncio.sleep(left)
     await bot.wait_until_ready()
