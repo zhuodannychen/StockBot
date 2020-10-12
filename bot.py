@@ -12,6 +12,8 @@ from newsapi import NewsApiClient
 import asyncio
 from datetime import datetime, timedelta
 
+import forcasting
+
 
 # load_dotenv()
 # DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -67,7 +69,7 @@ async def before():
     n = datetime.now()
     tomorrow = datetime.now() + timedelta(1)
     morning = datetime(year=tomorrow.year, month=tomorrow.month, 
-                        day=tomorrow.day, hour=8, minute=00, second=0)
+                        day=tomorrow.day, hour=13, minute=00, second=0)
     left = (morning - datetime.now()).seconds
     await asyncio.sleep(left)
     await bot.wait_until_ready()
@@ -158,6 +160,11 @@ async def snews(ctx, quo):
         embed.add_field(name=news_articles[i]["url"], value=news_articles[i]["publishedAt"], inline=False)
     await ctx.send(embed=embed)
 
+@bot.command(name="forcast", help="forcast stock price")
+async def forcast(ctx, quo):
+    await ctx.send("Training model...")
+    await ctx.send(forcasting.forcasting_stock(quo))
+    await ctx.send("Finished forcasting")
 
 called_once_a_day.start()
 bot.run(DISCORD_TOKEN)
