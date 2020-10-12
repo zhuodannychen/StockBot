@@ -6,21 +6,30 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from alpha_vantage.timeseries import TimeSeries
+import CONFIG
 
 RANDOM_SEED = 42
 
 np.random.seed(RANDOM_SEED)
+TS_KEY = CONFIG.VARIABLES['TS_KEY']
 
-def forcasting_stock(quo):
+def forecasting_stock(quo):
     quo = quo.upper()
-    ts = TimeSeries(key='QXBVAEK48AL618FI', output_format='pandas')
+    ts = TimeSeries(key=TS_KEY, output_format='pandas')
     data = ""
     try:
         data = ts.get_daily_adjusted(symbol=quo, outputsize='full')
     except:
         msg = "No data found"
         return msg
-    df = data[0]
+
+    data_cutoff = min(1200, len(data[0]))
+
+    if data_cutoff <= 130:
+        msg = "Not enough historical data to forecast"
+        return msg
+
+    df = data[0][:data_cutoff]
     df = df.iloc[::-1]
 
     train_size = int(len(df) * 0.8)

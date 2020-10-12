@@ -12,14 +12,16 @@ from newsapi import NewsApiClient
 import asyncio
 from datetime import datetime, timedelta
 
-import forcasting
+import forecasting
+import CONFIG
 
 
 # load_dotenv()
 # DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-DISCORD_TOKEN = "NzU5NjE2MjE0NTM2MDI4MjAw.X3AFug.XhmupBGvSc7xDUrLefiBLN_a6-A"
+DISCORD_TOKEN = CONFIG.VARIABLES['DISCORD_TOKEN']
+
 # NEWSAPI_TOKEN = os.getenv('NEWSAPI_TOKEN')
-NEWSAPI_TOKEN = "dd38a6e14b0a4e908241e6a73e00e937"
+NEWSAPI_TOKEN = CONFIG.VARIABLES['NEWSAPI_TOKEN']
 newsapi = NewsApiClient(api_key=NEWSAPI_TOKEN)
 
 def get_news(source="bbc-news"):
@@ -74,13 +76,13 @@ async def before():
     await asyncio.sleep(left)
     await bot.wait_until_ready()
 
-@bot.command(name='chart', help='Responds with info on stock quote')
-async def quote(ctx, quo):
+@bot.command(name='chart', help='Returns a tradingview link of a given stock symbol.')
+async def chart(ctx, quo="MSFT"):
     response = "https://www.tradingview.com/symbols/" + quo
     await ctx.send(response)
 
-@bot.command(name='price', help='Responds with current price')
-async def price(ctx, quo):
+@bot.command(name='price', help='Returns the current price and percent change of a given stock.')
+async def price(ctx, quo="MSFT"):
     URL = "https://finance.yahoo.com/quote/" + quo
     page = requests.get(URL)
     soup = BeautifulSoup(page.text, "html.parser")
@@ -91,8 +93,8 @@ async def price(ctx, quo):
     except:
         await ctx.send("No data found")
 
-@bot.command(name='profile', help='Responds with company profile')
-async def profile(ctx, quo):
+@bot.command(name='profile', help='Returns the profile/about info of a given stock.')
+async def profile(ctx, quo="MSFT"):
     URL = "https://finance.yahoo.com/quote/" + quo + "/profile"
     page = requests.get(URL)
     soup = BeautifulSoup(page.text, "html.parser")
@@ -102,7 +104,7 @@ async def profile(ctx, quo):
     except:
         await ctx.send("No data found")
 
-@bot.command(name='triple', help='Responds with company info')
+@bot.command(name='triple', help='Returns the current price and percent change of the three major index (NASDAQ, DJI, and S&P 500).')
 async def triple(ctx):
     channel = ctx.message.channel
     embed = discord.Embed(
@@ -138,14 +140,14 @@ async def triple(ctx):
         
     await ctx.send(embed=embed)
 
-@bot.command(name="news", help="sends news")
+@bot.command(name="news", help="Returns (usually 10) headline news from a given source. Default is bbc-news.")
 async def news(ctx, source="bbc-news"):
     await ctx.send("Searching for news...")
     embed = get_news(source)
     await ctx.send(embed=embed)
 
-@bot.command(name="snews", help="stock news")
-async def snews(ctx, quo):
+@bot.command(name="snews", help="Returns the headline news of a given stock symbol.")
+async def snews(ctx, quo="MSFT"):
     top_headlines = newsapi.get_everything(q=quo)
     news_articles = top_headlines['articles']
     embed = discord.Embed(
@@ -160,11 +162,11 @@ async def snews(ctx, quo):
         embed.add_field(name=news_articles[i]["url"], value=news_articles[i]["publishedAt"], inline=False)
     await ctx.send(embed=embed)
 
-@bot.command(name="forcast", help="forcast stock price")
-async def forcast(ctx, quo):
+@bot.command(name="forecast", help="Returns the forecast prices of the next 5 days, from top to bottom, for a given stock symbol.")
+async def forecast(ctx, quo="MSFT"):
     await ctx.send("Training model...")
-    await ctx.send(forcasting.forcasting_stock(quo))
-    await ctx.send("Finished forcasting")
+    await ctx.send(forecasting.forecasting_stock(quo))
+    await ctx.send("Finished forecasting")
 
 called_once_a_day.start()
 bot.run(DISCORD_TOKEN)
