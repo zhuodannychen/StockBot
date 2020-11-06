@@ -26,9 +26,9 @@ For getting real time data, like the !price command, !triple, and !profile, the 
 
 For commands like !news and !snews, the [newsapi](https://newsapi.org/docs/client-libraries/python) is used to get headline news.
 
-For sending news everyday at 8:00 am CDT, we use asyncio and datetime libraries to calculate the time until 8:00 am, then we call on commands of !news and !price.
+For sending news everyday at 7:00 am CDT, I used asyncio and datetime libraries to calculate the time until 7:00 am, then I called on commands of !news and !price.
 
-For the forecast command, a LSTM model created with [Tensorflow](https://www.tensorflow.org/) was used to forecast the stock prices. The data comes from [alpha-vantage API](https://www.alphavantage.co/documentation/). alpha-vantage provides all historical data in [pandas](https://pandas.pydata.org/) format. However, we are only using the past 1200 days because the model trains quicker with a smaller data set. We also used an adam optimizer with mean squared error for loss.
+For the forecast command, a LSTM model created with [Tensorflow](https://www.tensorflow.org/) was used to forecast the stock prices. The data comes from [alpha-vantage API](https://www.alphavantage.co/documentation/). alpha-vantage provides all historical data in [pandas](https://pandas.pydata.org/) format. However, I am only using the past 1200 days because the model trains quicker with a smaller data set. We also used an adam optimizer with mean squared error for loss.
 
 ## User Documentation
 **!** prefix
@@ -67,7 +67,7 @@ For the forecast command, a LSTM model created with [Tensorflow](https://www.ten
 
 --- Example: !triple
 
-**forecast** - Returns the forecast prices of the next 5 days, from top to bottom, for a given stock symbol. Note: this command can take up to 30 seconds before returning results.
+**forecast** - Returns the forecast prices of the next 5 days, from top to bottom, for a given stock symbol. Note: this command can take up to 60 seconds before returning results.
 
 --- Example: !forecast msft
 
@@ -77,7 +77,7 @@ In addition, the bot sends news headlines and the premarket movement of NASDAQ 1
 
 ## Improvements
 * The current stock forecasting model is not very accurate, so a better model can be developed.
-* The current forecasting command takes a long time to execute because we're training it on the command. Saving the model after training and then predicting could lead to a better result and faster execution. The only problem is we don't want to overfitt the data.
+* The current forecasting command takes a long time to execute because I am training it on the command. Saving the model after training and then predicting could lead to a better result and faster execution. The only problem is we don't want to overfitt the data.
 * The current training data does not provide adjusted open, adjusted high, and adjusted low, so stocks with recent splits cannot be accurately predicted.
 * Matplotlib plots cannot be sent over discord messages, so plotting the day or week trend of a stock cannot be created using a command. Implementation for directly displaying charts on discord messages is still needed.
 * More commands can be implemented, such as earnings data, analyst recommendations, etc.
