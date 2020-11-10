@@ -6,7 +6,7 @@ Financial illiteracy is an increasingly problem among college students. College 
 However, the problem with many group chats such as discord is that it doesn't offer resources to provide a clean way to discuss stocks. Example of some problems:
 * Amateurs like to look at or follow Guru trades. However, in discord, it's hard for Guru's to specify when they will enter a trade and at what price (live trading). In this case, a discord bot command can specify the current price of a stock, and the Guru can use a bot command rather than using buy @here. This also allows amateurs to look at the trade afterwards and keep track of their paper trades.
 * Amateurs want to know if their trade is successful, and one way is to use a bot stock forecast. However, note that markets are made up with emotions of greed and fear, which makes forecasting stock prices unreliable (at least of right now).
-* Amateurs usually don't know what to pay attention to in premarket. Thus, the bot provides news and NASDAQ futures at 8:00 am for better preparation when market opens.
+* Amateurs usually don't know what to pay attention to in premarket. Thus, the bot provides news and NASDAQ futures at 7:00 am for better preparation when market opens.
 
 All of these functionalities will make it easier to discuss stocks on the discord group chat.
 
@@ -68,7 +68,7 @@ For the forecast command, a LSTM model created with [Tensorflow](https://www.ten
 
 --- Example: !triple
 
-**forecast** - Returns the forecast prices of the next 5 days, from top to bottom, for a given stock symbol. Note: this command can take up to 60 seconds before returning results.
+**forecast** - Returns the forecast prices of the next 5 days, from top to bottom, for a given stock symbol. Note: this command can take up to 60 seconds before returning results and is not very accurate.
 
 --- Example: !forecast msft
 
@@ -81,4 +81,5 @@ In addition, the bot sends news headlines and the premarket movement of NASDAQ 1
 * The current forecasting command takes a long time to execute because I am training it on the command. Saving the model after training and then predicting could lead to a better result and faster execution. The only problem is we don't want to overfitt the data.
 * The current training data does not provide adjusted open, adjusted high, and adjusted low, so stocks with recent splits cannot be accurately predicted.
 * Matplotlib plots cannot be sent over discord messages, so plotting the day or week trend of a stock cannot be created using a command. Implementation for directly displaying charts on discord messages is still needed.
+* The time it sends news is 1 hour late (8:00 am) during daylight saving time, the bot can be improved to adjust accordingly.
 * More commands can be implemented, such as earnings data, analyst recommendations, etc.
