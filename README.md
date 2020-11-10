@@ -16,10 +16,11 @@ All of these functionalities will make it easier to discuss stocks on the discor
 
 2. If using git, run ```git clone https://github.com/zhuodannychen/StockBot```
 3. Run ```pip3 install -r requirements.txt``` to install dependencies.
-4. Edit the required TOKENS with your own tokens in ```CONFIG.py```.
-5. Run the bot with ```python3 bot.py```.
+4. To configure the ```DISCORD_TOKEN```, there are two options: Create a ```.env``` in root and set ```DISCORD_TOKEN='YOUR TOKEN'```, or configure it in ```CONFIG.py``` and edit the comments in ```bot.py```.
+5. Edit the other TOKENS with your own tokens in ```CONFIG.py```.
+6. Run the bot with ```python3 bot.py```.
 #### To invite the bot to a server
-6. To add the bot to your server, go to this link and follow instructions. <https://discord.com/oauth2/authorize?client_id=759616214536028200&permissions=0&scope=bot>
+7. To add the bot to your server, go to this link and follow instructions. <https://discord.com/oauth2/authorize?client_id=759616214536028200&permissions=0&scope=bot>
 
 #### How the Bot Works
 For getting real time data, like the !price command, !triple, and !profile, the data is scrapped from [Yahoo Finance](https://finance.yahoo.com/) using [BeautifulSoup](https://pypi.org/project/beautifulsoup4/).
@@ -73,7 +74,7 @@ For the forecast command, a LSTM model created with [Tensorflow](https://www.ten
 
 If no stock symbol is inputted for any commands, MSFT will be used by default.
 
-In addition, the bot sends news headlines and the premarket movement of NASDAQ 100 everyday at 8:00 am CDT.
+In addition, the bot sends news headlines and the premarket movement of NASDAQ 100 everyday at 7:00 am CDT.
 
 ## Improvements
 * The current stock forecasting model is not very accurate, so a better model can be developed.
